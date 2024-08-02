@@ -54,6 +54,9 @@ class ChatMessage extends Component
         $chat->message = $this->message;
         $chat->save();
 
+        /* show message on current user chat box */
+        $this->appendChatMessage($chat);
+
         broadcast(new MessageSendEvent($chat))->toOthers();
 
         $this->message = "";
@@ -63,7 +66,14 @@ class ChatMessage extends Component
     #[On("echo:private-chat-channel.{sender_id},MessageSendEvent")]
     public function listenForMessage($event)
     {
-        dd($event);
+        $currenctMessage = Message::whereId($event['chatMessage']['id'])
+            ->with('sender:id,name', 'receiver:id,name')
+            ->first();
+
+        /* boardcasting show message */
+        $this->appendChatMessage($currenctMessage);
+
+        // dd($currenctMessage);
     }
 
 
