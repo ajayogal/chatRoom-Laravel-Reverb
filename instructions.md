@@ -19,3 +19,25 @@ npm run dev
 ``
 php artisan make:livewire ChatMessage
 ``
+### Install reverb using 
+``
+php artisan install:broadcasting
+``
+
+### run commands 
+``
+php artisan serve
+npm run dev
+php artisan reverb:start
+``
+
+### run reverb in debug mode
+``
+php artisan reverb:start --debug
+``
+
+### create model Message
+``
+php artisan make:model Message -m
+``
+
