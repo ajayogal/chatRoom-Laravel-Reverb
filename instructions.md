@@ -8,6 +8,14 @@
 </p>
 
 ## Laravel Reverb Chat
+
+### Install and run app
 ``
 php artisan serve
+npm run dev
+``
+
+### Create livewire component for chat
+``
+php artisan make:livewire ChatMessage
 ``

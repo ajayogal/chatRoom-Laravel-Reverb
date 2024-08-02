@@ -10,6 +10,11 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
+                    <ul>
+                        @foreach ($users as $user)
+                        <li><a href="{{route('chat', $user->id)}}">{{$user->name}}</a></li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>
