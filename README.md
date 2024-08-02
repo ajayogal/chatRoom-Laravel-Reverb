@@ -11,3 +11,7 @@
 ``
 php artisan serve
 ``
+
+``
+php artisan reverb:start
+``
