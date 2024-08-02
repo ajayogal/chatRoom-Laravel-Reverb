@@ -41,3 +41,7 @@ php artisan reverb:start --debug
 php artisan make:model Message -m
 ``
 
+### create event MessageSendEvent
+``
+php artisan make:event MessageSendEvent
+``
