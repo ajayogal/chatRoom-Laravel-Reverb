@@ -21,6 +21,13 @@ Route::get('/chat/{id}', function ($id) {
     ->middleware(['auth', 'verified'])
     ->name('chat');
 
+
+Route::get('/messenger', function () {
+    return view("messenger");
+})
+    ->middleware(['auth', 'verified'])
+    ->name('messenger');
+
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
