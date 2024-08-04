@@ -5,69 +5,13 @@
         <div class="row clearfix">
             <div class="col-lg-12">
                 <div class="card chat-app">
-                    <div id="plist" class="people-list">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-search"></i></span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Search...">
-                        </div>
-                        <ul class="list-unstyled chat-list mt-2 mb-0">
-                            <li class="clearfix">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                                <div class="about">
-                                    <div class="name">Vincent Porter</div>
-                                    <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
-                                </div>
-                            </li>
-                            <li class="clearfix active">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
-                                <div class="about">
-                                    <div class="name">Aiden Chavez</div>
-                                    <div class="status"> <i class="fa fa-circle online"></i> online </div>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
-                                <div class="about">
-                                    <div class="name">Mike Thomas</div>
-                                    <div class="status"> <i class="fa fa-circle online"></i> online </div>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
-                                <div class="about">
-                                    <div class="name">Christian Kelly</div>
-                                    <div class="status"> <i class="fa fa-circle offline"></i> left 10 hours ago </div>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar8.png" alt="avatar">
-                                <div class="about">
-                                    <div class="name">Monica Ward</div>
-                                    <div class="status"> <i class="fa fa-circle online"></i> online </div>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
-                                <div class="about">
-                                    <div class="name">Dean Henry</div>
-                                    <div class="status"> <i class="fa fa-circle offline"></i> offline since Oct 28
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
                     <div class="chat">
                         <div class="chat-header clearfix">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
-                                    </a>
+                                    <div class="avatar receiver">{{ $user->name }}</div>
                                     <div class="chat-about">
                                         <h6 class="m-b-0">{{ $user->name }}</h6>
-                                        <small>Last seen: 2 hours ago</small>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 hidden-sm text-right">
@@ -84,8 +28,8 @@
                                 @if($message['sender_id'] == $sender_id)
                                 <li class="clearfix">
                                     <div class="message-data text-right">
-                                        <span class="message-data-time">10:10 AM, Today</span>
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
+                                        <span class="message-data-time">{{ $message['date'] }}</span>
+                                        <div class="avatar sender">{{ $message['sender'] }}</div>
                                     </div>
                                     <div class="message other-message float-right"> {{ $message['message'] }} </div>
                                 </li>
@@ -93,25 +37,28 @@
                                 @if($message['sender_id'] == $receiver_id)
                                 <li class="clearfix">
                                     <div class="message-data">
-                                        <span class="message-data-time">10:12 AM, Today</span>
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                                        <span class="message-data-time">{{ $message['date'] }}</span>
+                                        <div class="avatar receiver">{{ $message['sender'] }}</div>
                                     </div>
-                                    <div class="message my-message">{{ $message['message'] }} </div>
+                                    <div class="message my-message">{{ $message['message'] }}</div>
                                 </li>
                                 @endif
                                 @endforeach
                             </ul>
                         </div>
+                        <!-- Chat Input -->
+
                         <form wire:submit="sendMessage">
                             <div class="chat-message clearfix">
                                 <div class="input-group mb-0">
-                                    <div class="input-group-prepend">
-                                        <button type="submit">
+                                    <div class="flex items-center">
+                                        <input wire:model="message" type="text" placeholder="Type a message..."
+                                            class="w-full p-2 rounded-md border border-gray-400 focus:outline-none focus:border-blue-500">
+                                        <button type="submit"
+                                            class="bg-indigo-500 text-white px-4 py-2 rounded-md ml-2">
                                             <span class="input-group-text"><i class="fa fa-send"></i></span>
                                         </button>
                                     </div>
-                                    <input wire:model="message" type="text" class="form-control"
-                                        placeholder="Enter text here...">
                                 </div>
                             </div>
                         </form>
@@ -121,6 +68,34 @@
         </div>
     </div>
     <style>
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #555;
+            text-transform: uppercase;
+            float: left;
+            margin: 0 10px;
+            overflow: hidden;
+            border: 5px solid #f0f0f0;
+        }
+
+        .avatar.receiver {
+            background-color: #86c541;
+            border: 5px solid #86c541;
+            color: #fff;
+        }
+
+        .avatar.sender {
+            float: right;
+        }
+
         .chatmessage {
             background-color: #f4f7f6;
             margin-top: 20px;
@@ -150,7 +125,6 @@
         }
 
         .chat-app .chat {
-            margin-left: 280px;
             border-left: 1px solid #eaeaea
         }
 
@@ -213,7 +187,11 @@
 
         .chat .chat-header .chat-about {
             float: left;
-            padding-left: 10px
+            padding-left: 10px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            font-size: 1.4rem;
         }
 
         .chat .chat-history {

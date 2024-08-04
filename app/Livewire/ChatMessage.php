@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Helpers\General;
 use App\Models\User;
 use App\Models\Message;
 use Livewire\Component;
@@ -85,7 +86,7 @@ class ChatMessage extends Component
             'message' => $message->message,
             'sender' => $message->sender->name,
             'receiver' => $message->receiver->name,
-            'date' => $message->created_at,
+            'date' => General::formatDateTime($message->created_at),
         ];
     }
 }
