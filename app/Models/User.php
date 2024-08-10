@@ -3,9 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Message;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -44,4 +47,18 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function latestMessage(): HasOne
+    {
+        return $this->hasOne(Message::class, 'sender_id')
+        ->where('sender_id', $this->id)
+        ->orWhere('receiver_id', $this->id)
+        ->latest();
+    }
+
 }

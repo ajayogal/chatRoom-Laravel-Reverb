@@ -5,5 +5,14 @@
         </h2>
     </x-slot>
     <!-- component -->
-    @livewire('chat-messenger')
+    <div class=" overflow-hidden bg-black relative" style="height: 80vh">
+        <div class="flex overflow-hidden">
+            <!-- Sidebar -->
+            @livewire('chat-friends')
+
+            <!-- Main Chat Area -->
+            @livewire('chat-messenger')
+
+        </div>
+    </div>
 </x-app-layout>
