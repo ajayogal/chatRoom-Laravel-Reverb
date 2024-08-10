@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class ChatFriends extends Component
 {
-    public $title = "Chat Friends";
+    public $title = "Messanger";
     public $friends = [];
     public $friend_id = NULL;
     public function render()
