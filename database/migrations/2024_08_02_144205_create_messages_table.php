@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->foreignId("receiver_id");
             $table->longText('message');
             $table->longText('attachments')->nullable();
+            $table->boolean('read')->default(0);
             $table->timestamps();
         });
     }

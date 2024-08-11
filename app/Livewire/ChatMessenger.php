@@ -30,6 +30,8 @@ class ChatMessenger extends Component
 
     public function showChat($user_id)
     {
+        /* refresh chats */
+        $this->messages = [];
         // dd($user_id);
         $this->sender_id = auth()->user()->id;
         $this->receiver_id = $user_id;
